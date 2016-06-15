@@ -45,6 +45,7 @@ def normalize_documents(documents, language):
 def get_args():
   arg_parser = argparse.ArgumentParser()
   arg_parser.add_argument("document_file",
+                          nargs="?",
                           type=argparse.FileType(),
                           default=sys.stdin)
   arg_parser.add_argument("-l", "--language", default="english")
