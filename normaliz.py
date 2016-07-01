@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
+import iso639
 import functools
+import langdetect
 import multiprocessing
 import sys
 import unicodedata
@@ -15,8 +17,8 @@ class DocumentNormalizer:
 
   def normalize(self, document):
     return {
-      "english" : normalize_in_english,
-      "japanese" : normalize_in_japanese,
+      "en" : normalize_in_english,
+      "ja" : normalize_in_japanese,
     }[self._language](document)
 
 
@@ -48,15 +50,28 @@ def get_args():
                           nargs="?",
                           type=argparse.FileType(),
                           default=sys.stdin)
-  arg_parser.add_argument("-l", "--language", default="english")
-  return arg_parser.parse_args()
+  arg_parser.add_argument("-l", "--language", help="ISO 639-1 code.")
+  arg_parser.add_argument("-v", "--verbose", action="store_true")
+  args = arg_parser.parse_args()
+
+  if args.language is not None and not iso639.is_valid639_1(args.language):
+    raise ValueError("\"{}\" is not a valid ISO 639-1 code."
+                     .format(args.language))
+
+  return args
 
 
 def main():
   args = get_args()
 
-  for document in normalize_documents(args.document_file.readlines(),
-                                      args.language):
+  documents = args.document_file.readlines()
+  language = langdetect.detect(" ".join(documents)) \
+             if args.language is None else args.language
+
+  if args.verbose:
+    print("ISO 639-1 code:", language, file=sys.stderr)
+
+  for document in normalize_documents(documents, language):
     print(document)
 
 
