@@ -11,6 +11,7 @@ task :test => :clean do
   vsh 'python setup.py install'
   vsh 'nlnormaliz data/foo.en'
   vsh 'nlnormaliz data/foo.ja'
+  vsh 'nlnormaliz data/foo.what'
 end
 
 
