@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/raviqqe/nlnormaliz.py.svg?branch=master)](https://travis-ci.org/raviqqe/nlnormaliz.py)
 [![License](https://img.shields.io/badge/license-unlicense-lightgray.svg)](https://unlicense.org)
 
-Natural language normalizer for English and Japanese documents in Python
+Natural language normalizer mainly for English and Japanese documents in Python
 
 
 ## License

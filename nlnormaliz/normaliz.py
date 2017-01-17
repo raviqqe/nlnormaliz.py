@@ -17,7 +17,7 @@ def normalize(document, language=None):
     return {
         'en': normalize_english,
         'ja': normalize_japanese,
-    }[language or langdetect.detect(document)](document)
+    }.get(language or langdetect.detect(document), 'en')(document)
 
 
 def common_normalization(func):
