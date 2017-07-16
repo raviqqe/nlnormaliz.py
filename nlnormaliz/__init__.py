@@ -1,3 +1,4 @@
-from .normaliz import *
+from .normaliz import normalize
 
-__version__ = '0.0.3'
+__all__ = ['normalize']
+__version__ = '0.0.4'
